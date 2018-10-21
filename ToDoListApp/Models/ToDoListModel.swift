@@ -13,6 +13,7 @@ protocol ToDoListModelProtocol {
     func fetchTasks(_ completion: ((_ success: Bool) -> Void)?)
     func saveNewTask(_ name: String, _ completion: ((_ success: Bool) -> Void)?)
     func setTaskToCompleted(task: Task, _ completion: ((_ success: Bool) -> Void)?)
+    func updateTask(_ task: Task, newName: String, _ completion: ((_ success: Bool) -> Void)?)
     func clearCompletedTasks(_ completion: ((_ success: Bool) -> Void)?)
     var fetchedTasks: [Task] { get }
     var currentTasks: [Task] { get }
@@ -24,9 +25,9 @@ class ToDoListModel {
     var currentTasks: [Task] = []
     var completedTasks: [Task] = []
     
-    init() {}
-    
     private func setupCurrentAndCompletedTasks() {
+        currentTasks.removeAll()
+        completedTasks.removeAll()
         for task in fetchedTasks {
             if task.isComplete {
                 completedTasks.append(task)
@@ -49,6 +50,7 @@ extension ToDoListModel: ToDoListModelProtocol {
     func fetchTasks(_ completion: ((_ success: Bool) -> Void)?) {
         do {
             fetchedTasks = try PersistenceService.context.fetch(Task.fetchRequest())
+            setupCurrentAndCompletedTasks()
             completion?(true)
         } catch let error as NSError {
             print("Could not fetch - \(error.localizedDescription)")
@@ -80,6 +82,16 @@ extension ToDoListModel: ToDoListModelProtocol {
         }
     }
     
+    func updateTask(_ task: Task, newName: String, _ completion: ((_ success: Bool) -> Void)?) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let index = self.currentTasks.firstIndex(where: { $0 == task }) {
+                self.currentTasks[index].name = newName
+            }
+            task.name = newName
+            PersistenceService.saveContext(completion)
+        }
+    }
+    
     func clearCompletedTasks(_ completion: ((_ success: Bool) -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
             let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
@@ -89,6 +101,8 @@ extension ToDoListModel: ToDoListModelProtocol {
                 for item in items {
                     PersistenceService.context.delete(item)
                 }
+                self.completedTasks.removeAll()
+                
                 PersistenceService.saveContext(completion)
                 
             } catch let error as NSError {

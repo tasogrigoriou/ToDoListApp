@@ -16,58 +16,28 @@ class ToDoListViewController: UIViewController {
     
     let model = ToDoListModel()
     
-    var tableViewState = TableViewState.current
-    var keyboardIsShowing = false
-    
     // MARK - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         setupNavBarTitle()
-        setupBarButtonItems()
-        addTapGestureRecognizer()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         loadData()
     }
     
-    func setTaskToCompleted(task: Task, at indexPath: IndexPath) {
+    func setTaskToCompleted(task: Task) {
         model.setTaskToCompleted(task: task) { [weak self] success in
+            guard let strongSelf = self else { return }
             if success {
-                
-            }
-        }
-        DispatchQueue.global(qos: .userInitiated).async {
-            task.isComplete = true
-            task.dateCompleted = Date() as NSDate
-            var rowToDelete: Int?
-            if let index = self.currentTasks.firstIndex(where: { $0 == task }) {
-                rowToDelete = index
-                self.currentTasks.remove(at: index)
-            }
-            self.completedTasks.insert(task, at: 0)
-            
-            PersistenceService.saveContext({ [weak self] success in
-                if success {
-                    DispatchQueue.main.async {
-                        guard let sself = self else { return }
-                        sself.tableView.beginUpdates()
-                        if let row = rowToDelete {
-                            sself.tableView.deleteRows(at: [IndexPath(row: row, section: 0)], with: .fade)
-                        }
-                        if sself.tableViewState == .showingCompleted {
-                            let rowToAdd = sself.currentTasks.count + 1
-                            sself.tableView.insertRows(at: [IndexPath(row: rowToAdd, section: 0)], with: .fade)
-                        }
-                        sself.tableView.endUpdates()
-                    }
+                if let row = strongSelf.model.currentTasks.firstIndex(where: { $0 == task }) {
+                    strongSelf.tableView.deleteRows(at: [IndexPath(row: row, section: 0)], with: .fade)
                 }
-            })
-            
+            }
         }
-    }
-    
-    @objc private func addNewTask() {
-        
     }
     
     // MARK - IBActions
@@ -120,11 +90,11 @@ class ToDoListViewController: UIViewController {
         navigationItem.titleView = label
     }
     
-    private func setupBarButtonItems() {
-        let rightButtonItem = UIBarButtonItem(image: UIImage(named: "plus"), style: .plain, target: self, action: #selector(addNewTask))
-        rightButtonItem.tintColor = .black
-        navigationItem.rightBarButtonItem = rightButtonItem
-    }
+//    private func setupBarButtonItems() {
+//        let rightButtonItem = UIBarButtonItem(image: UIImage(named: "plus"), style: .plain, target: self, action: #selector(addNewTask))
+//        rightButtonItem.tintColor = .black
+//        navigationItem.rightBarButtonItem = rightButtonItem
+//    }
     
     private func addTapGestureRecognizer() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: view, action: #selector(view.endEditing(_:)))
@@ -156,30 +126,6 @@ class ToDoListViewController: UIViewController {
 //    }
 //}
 
-extension ToDoListViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch tableViewState {
-        case .current: return model.currentTasks.count
-        case .completed: return model.completedTasks.count
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoTableViewCell", for: indexPath) as! ToDoTableViewCell
-        switch tableViewState {
-        case .current:
-            cell.titleLabel.text = model.currentTasks[indexPath.row].name
-        case .completed:
-            cell.titleLabel.text = model.completedTasks[indexPath.row].name
-        }
-        return cell
-    }
-}
-
 extension ToDoListViewController: UITableViewDelegate {
 //    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
 //        if keyboardIsShowing {
@@ -198,32 +144,5 @@ extension ToDoListViewController: UITableViewDelegate {
 //            setTaskToCompleted(task: currentTasks[indexPath.row], at: indexPath)
 //        }
 //    }
-}
-
-extension ToDoListViewController: UITextFieldDelegate {
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        if let name = textField.text, !name.isEmpty {
-//            model.saveNewTask(name) { [weak self] success in
-//                if success {
-//                    guard let sself = self else { return }
-//                    let numTasks = sself.currentTasks.count
-//                    if numTasks > 0 {
-//                        sself.tableView.insertRows(at: [IndexPath(row: numTasks - 1, section: 0)], with: .fade)
-//                    } else {
-//                        sself.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
-//                    }
-//                }
-//            }
-//        }
-//        textField.resignFirstResponder()
-//        textField.text = ""
-//
-//        return true
-//    }
-}
-
-enum TableViewState {
-    case current
-    case completed
 }
 

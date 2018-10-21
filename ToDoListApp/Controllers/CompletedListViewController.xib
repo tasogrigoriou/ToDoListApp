@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CompletedListViewController" customModule="ToDoListApp" customModuleProvider="target">
             <connections>
-                <outlet property="tableView" destination="OOc-hf-m81" id="2bG-JB-ga4"/>
+                <outlet property="tableView" destination="OOc-hf-m81" id="CZA-Fh-urE"/>
                 <outlet property="view" destination="G5q-5F-qSH" id="pCp-rh-slb"/>
             </connections>
         </placeholder>

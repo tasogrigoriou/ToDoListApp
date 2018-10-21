@@ -47,7 +47,7 @@ class PersistenceService {
     
     // MARK: - Core Data Saving support
     
-    static func saveContext (_ completion: ((_ success: Bool) -> Void)?) {
+    static func saveContext (_ completion: ((_ success: Bool) -> Void)? = nil) {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
