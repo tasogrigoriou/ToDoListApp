@@ -50,7 +50,7 @@ class CompletedListViewController: UIViewController {
     private func setupNavBarTitle() {
         let label = UILabel(frame: CGRect.zero)
         label.backgroundColor = UIColor.clear
-        if let font = UIFont(name: "AvenirNextCondensed-DemiBold", size: 20.0) {
+        if let font = UIFont(name: "AvenirNextCondensed-Bold", size: 22.0) {
             label.font = font
         }
         label.textAlignment = .center

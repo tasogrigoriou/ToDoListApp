@@ -28,7 +28,6 @@ class CurrentListViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         setupNavBarTitle()
-        setupBarButtonItems()
         loadData()
     }
     
@@ -50,7 +49,7 @@ class CurrentListViewController: UIViewController {
     private func setupNavBarTitle() {
         let label = UILabel(frame: CGRect.zero)
         label.backgroundColor = UIColor.clear
-        if let font = UIFont(name: "AvenirNextCondensed-DemiBold", size: 20.0) {
+        if let font = UIFont(name: "AvenirNextCondensed-Bold", size: 22.0) {
             label.font = font
         }
         label.textAlignment = .center
@@ -60,10 +59,8 @@ class CurrentListViewController: UIViewController {
         navigationItem.titleView = label
     }
     
-    private func setupBarButtonItems() {
-        let rightButtonItem = UIBarButtonItem(image: UIImage(named: "plus"), style: .plain, target: self, action: #selector(addNewTask))
-        rightButtonItem.tintColor = .black
-        navigationItem.rightBarButtonItem = rightButtonItem
+    @IBAction func addButtonPressed() {
+        addNewTask()
     }
     
     @objc private func addNewTask() {
