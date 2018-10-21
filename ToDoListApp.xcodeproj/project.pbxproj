@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		9D146F9C2179706800AB97BD /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D146F9A2179706800AB97BD /* PopUpViewController.swift */; };
 		9D146F9D2179706800AB97BD /* PopUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D146F9B2179706800AB97BD /* PopUpViewController.xib */; };
-		9D146F9F217975B400AB97BD /* PopUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D146F9E217975B400AB97BD /* PopUpModel.swift */; };
 		9F51898C21795EA200C2AA50 /* ToDoListTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F51898B21795EA200C2AA50 /* ToDoListTabBarController.swift */; };
 		9F51898E21795F0300C2AA50 /* ToDoListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F51898D21795F0300C2AA50 /* ToDoListModel.swift */; };
 		9F5189912179691800C2AA50 /* CurrentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F51898F2179691800C2AA50 /* CurrentListViewController.swift */; };
@@ -29,7 +28,6 @@
 /* Begin PBXFileReference section */
 		9D146F9A2179706800AB97BD /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		9D146F9B2179706800AB97BD /* PopUpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopUpViewController.xib; sourceTree = "<group>"; };
-		9D146F9E217975B400AB97BD /* PopUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpModel.swift; sourceTree = "<group>"; };
 		9F51898B21795EA200C2AA50 /* ToDoListTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListTabBarController.swift; sourceTree = "<group>"; };
 		9F51898D21795F0300C2AA50 /* ToDoListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListModel.swift; sourceTree = "<group>"; };
 		9F51898F2179691800C2AA50 /* CurrentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentListViewController.swift; sourceTree = "<group>"; };
@@ -66,7 +64,6 @@
 				9F7B6C382151D8DD000C024A /* Task+CoreDataClass.swift */,
 				9F7B6C392151D8DD000C024A /* Task+CoreDataProperties.swift */,
 				9F51898D21795F0300C2AA50 /* ToDoListModel.swift */,
-				9D146F9E217975B400AB97BD /* PopUpModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -207,7 +204,6 @@
 			files = (
 				9F7B6C4621523F8B000C024A /* ToDoTableViewCell.swift in Sources */,
 				9D146F9C2179706800AB97BD /* PopUpViewController.swift in Sources */,
-				9D146F9F217975B400AB97BD /* PopUpModel.swift in Sources */,
 				9F51898E21795F0300C2AA50 /* ToDoListModel.swift in Sources */,
 				9F5189942179696F00C2AA50 /* CompletedListViewController.swift in Sources */,
 				9F7B6C3D2151D956000C024A /* PersistenceService.swift in Sources */,

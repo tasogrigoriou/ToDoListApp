@@ -48,25 +48,29 @@ class ToDoListModel {
 
 extension ToDoListModel: ToDoListModelProtocol {
     func fetchTasks(_ completion: ((_ success: Bool) -> Void)?) {
-        do {
-            fetchedTasks = try PersistenceService.context.fetch(Task.fetchRequest())
-            setupCurrentAndCompletedTasks()
-            completion?(true)
-        } catch let error as NSError {
-            print("Could not fetch - \(error.localizedDescription)")
-            completion?(false)
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                self.fetchedTasks = try PersistenceService.context.fetch(Task.fetchRequest())
+                self.setupCurrentAndCompletedTasks()
+                completion?(true)
+            } catch let error as NSError {
+                print("Could not fetch - \(error.localizedDescription)")
+                completion?(false)
+            }
         }
     }
     
     func saveNewTask(_ name: String, _ completion: ((_ success: Bool) -> Void)?) {
-        let newTask = Task(context: PersistenceService.context)
-        newTask.name = name
-        newTask.dateCreated = Date() as NSDate
-        newTask.isComplete = false
-        
-        currentTasks.append(newTask)
-        
-        PersistenceService.saveContext(completion)
+        DispatchQueue.global(qos: .userInitiated).async {
+            let newTask = Task(context: PersistenceService.context)
+            newTask.name = name
+            newTask.dateCreated = Date() as NSDate
+            newTask.isComplete = false
+            
+            self.currentTasks.append(newTask)
+            
+            PersistenceService.saveContext(completion)
+        }
     }
     
     func setTaskToCompleted(task: Task, _ completion: ((_ success: Bool) -> Void)?) {

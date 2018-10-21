@@ -29,10 +29,6 @@ class CompletedListViewController: UIViewController {
         setupNavBarTitle()
         setupBarButtonItems()
         addTaskCompletedObserver()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         loadData()
     }
     
@@ -93,10 +89,6 @@ class CompletedListViewController: UIViewController {
 }
 
 extension CompletedListViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model.completedTasks.count
     }

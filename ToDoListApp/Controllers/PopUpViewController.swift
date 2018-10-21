@@ -49,7 +49,6 @@ class PopUpViewController: UIViewController {
     }
     
     private func setupTextField() {
-
         if let task = task {
             textField.text = task.name
         }
