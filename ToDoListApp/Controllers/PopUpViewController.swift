@@ -83,13 +83,8 @@ class PopUpViewController: UIViewController {
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {
         guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
-        let keyboardHeight: CGFloat
-        if #available(iOS 11.0, *) {
-            keyboardHeight = keyboardFrame.cgRectValue.height + view.safeAreaInsets.bottom
-        } else {
-            keyboardHeight = keyboardFrame.cgRectValue.height
-        }
-        topViewConstraint.constant = view.frame.height - view.safeAreaInsets.top - keyboardHeight - 16
+        let totalHeight = keyboardFrame.cgRectValue.height + textField.frame.height + 16
+        topViewConstraint.constant = view.frame.height - totalHeight
     }
     
     @objc private func dismissVC() {
