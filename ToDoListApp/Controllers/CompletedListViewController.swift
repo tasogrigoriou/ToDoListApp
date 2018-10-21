@@ -104,6 +104,7 @@ extension CompletedListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoTableViewCell", for: indexPath) as! ToDoTableViewCell
         cell.titleLabel.text = model.completedTasks[indexPath.row].name
+        cell.circleImageView.image = UIImage(named: "completedtask")
         return cell
     }
 }

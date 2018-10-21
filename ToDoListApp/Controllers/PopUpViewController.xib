@@ -40,6 +40,7 @@
                             <rect key="frame" x="327" y="8" width="38" height="30"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
+                                <constraint firstAttribute="width" constant="38" id="kiC-R1-LR2"/>
                                 <constraint firstAttribute="height" constant="30" id="nnb-T1-Ztn"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>

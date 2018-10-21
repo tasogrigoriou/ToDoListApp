@@ -34,13 +34,13 @@ class ToDoListTabBarController: UITabBarController {
     }
     
     private func setupTabBarItems() {
-        tabBar.items?[0].image = UIImage(named: "plus")
-        tabBar.items?[0].selectedImage = UIImage(named: "plus")
+        tabBar.items?[0].image = UIImage(named: "current")
+        tabBar.items?[0].selectedImage = UIImage(named: "current")
         tabBar.items?[0].title = "Current"
         tabBar.items?[0].tag = 0
         
-        tabBar.items?[1].image = UIImage(named: "plus")
-        tabBar.items?[1].selectedImage = UIImage(named: "plus")
+        tabBar.items?[1].image = UIImage(named: "complete")
+        tabBar.items?[1].selectedImage = UIImage(named: "complete")
         tabBar.items?[1].title = "Completed"
         tabBar.items?[1].tag = 1
     }

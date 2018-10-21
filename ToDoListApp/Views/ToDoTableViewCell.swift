@@ -14,6 +14,7 @@ protocol ToDoTableViewCellDelegate: class {
 
 class ToDoTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var circleImageView: UIImageView!
     
     weak var delegate: ToDoTableViewCellDelegate?
     
