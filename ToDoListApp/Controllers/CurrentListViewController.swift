@@ -28,6 +28,7 @@ class CurrentListViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         setupNavBarTitle()
+        setupBarButtonItems()
         loadData()
     }
     
@@ -47,8 +48,8 @@ class CurrentListViewController: UIViewController {
     }
     
     private func setupNavBarTitle() {
-        let label = UILabel(frame: CGRect.zero)
-        label.backgroundColor = UIColor.clear
+        let label = UILabel(frame: .zero)
+        label.backgroundColor = .clear
         if let font = UIFont(name: "AvenirNextCondensed-Bold", size: 22.0) {
             label.font = font
         }
@@ -59,8 +60,10 @@ class CurrentListViewController: UIViewController {
         navigationItem.titleView = label
     }
     
-    @IBAction func addButtonPressed() {
-        addNewTask()
+    private func setupBarButtonItems() {
+        let rightButtonItem = UIBarButtonItem(image: UIImage(named: "plus"), style: .plain, target: self, action: #selector(addNewTask))
+        rightButtonItem.tintColor = .black
+        navigationItem.rightBarButtonItem = rightButtonItem
     }
     
     @objc private func addNewTask() {
@@ -92,6 +95,22 @@ extension CurrentListViewController: UITableViewDataSource {
         cell.delegate = self
         cell.titleLabel.text = model.currentTasks[indexPath.row].name
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            model.deleteTask(model.currentTasks[indexPath.row]) { [weak self] success in
+                if success {
+                    DispatchQueue.main.async {
+                        self?.tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
+                    }
+                }
+            }
+        }
     }
 }
 

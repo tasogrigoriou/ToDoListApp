@@ -14,6 +14,7 @@ protocol ToDoListModelProtocol {
     func saveNewTask(_ name: String, _ completion: ((_ success: Bool) -> Void)?)
     func setTaskToCompleted(task: Task, _ completion: ((_ success: Bool) -> Void)?)
     func updateTask(_ task: Task, newName: String, _ completion: ((_ success: Bool) -> Void)?)
+    func deleteTask(_ task: Task, _ completion: ((_ success: Bool) -> Void)?)
     func clearCompletedTasks(_ completion: ((_ success: Bool) -> Void)?)
     var fetchedTasks: [Task] { get }
     var currentTasks: [Task] { get }
@@ -92,9 +93,30 @@ extension ToDoListModel: ToDoListModelProtocol {
                 self.currentTasks[index].name = newName
             }
             task.name = newName
+            
             PersistenceService.saveContext(completion)
         }
     }
+    
+    func deleteTask(_ task: Task, _ completion: ((_ success: Bool) -> Void)?) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+            do {
+                let items = try PersistenceService.context.fetch(fetchRequest)
+                if let itemToDelete = items.first(where: { $0 == task }) {
+                    PersistenceService.context.delete(itemToDelete)
+                }
+                if let index = self.currentTasks.firstIndex(where: { $0 == task }) {
+                    self.currentTasks.remove(at: index)
+                }
+                
+                PersistenceService.saveContext(completion)
+            } catch let error as NSError {
+                print("error fetching with fetch request \(error.localizedDescription)")
+            }
+        }
+    }
+
     
     func clearCompletedTasks(_ completion: ((_ success: Bool) -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
@@ -102,13 +124,12 @@ extension ToDoListModel: ToDoListModelProtocol {
             fetchRequest.predicate = NSPredicate.init(format: "isComplete == true")
             do {
                 let items = try PersistenceService.context.fetch(fetchRequest)
-                for item in items {
-                    PersistenceService.context.delete(item)
+                items.forEach {
+                    PersistenceService.context.delete($0)
                 }
                 self.completedTasks.removeAll()
                 
                 PersistenceService.saveContext(completion)
-                
             } catch let error as NSError {
                 print("error fetching with fetch request \(error.localizedDescription)")
             }

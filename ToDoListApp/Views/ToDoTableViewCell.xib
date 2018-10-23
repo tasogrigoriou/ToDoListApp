@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m1g-tR-r22">
-                        <rect key="frame" x="46" y="15" width="259" height="13.5"/>
+                        <rect key="frame" x="46" y="12" width="259" height="19.5"/>
                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -50,9 +50,9 @@
                     <constraint firstItem="bEe-2l-mY4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="8Ev-qs-K5Y"/>
                     <constraint firstAttribute="trailing" secondItem="m1g-tR-r22" secondAttribute="trailing" constant="15" id="9jB-h1-Sft"/>
                     <constraint firstItem="p1h-t4-y7e" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="AZh-ZI-ntO"/>
-                    <constraint firstAttribute="bottom" secondItem="m1g-tR-r22" secondAttribute="bottom" constant="15" id="aYh-RA-Ylz"/>
+                    <constraint firstAttribute="bottom" secondItem="m1g-tR-r22" secondAttribute="bottom" constant="12" id="aYh-RA-Ylz"/>
                     <constraint firstItem="p1h-t4-y7e" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="dUI-rE-aab"/>
-                    <constraint firstItem="m1g-tR-r22" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="n7M-HM-SBU"/>
+                    <constraint firstItem="m1g-tR-r22" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="n7M-HM-SBU"/>
                     <constraint firstItem="m1g-tR-r22" firstAttribute="leading" secondItem="p1h-t4-y7e" secondAttribute="trailing" constant="13" id="qzq-JV-Evb"/>
                 </constraints>
             </tableViewCellContentView>

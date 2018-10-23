@@ -27,8 +27,8 @@ class ToDoListTabBarController: UITabBarController {
     private func setupNavigationControllers() {
         let model = ToDoListModel()
         let currentVC = CurrentListViewController(model: model)
-        let currentNav = UINavigationController(rootViewController: currentVC)
         let completedVC = CompletedListViewController(model: model)
+        let currentNav = UINavigationController(rootViewController: currentVC)
         let completedNav = UINavigationController(rootViewController: completedVC)
         viewControllers = [currentNav, completedNav]
     }

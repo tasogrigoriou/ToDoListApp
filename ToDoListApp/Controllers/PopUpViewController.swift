@@ -56,7 +56,7 @@ class PopUpViewController: UIViewController {
     }
     
     private func setupTapRecognizer() {
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissVC))
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(saveTask))
         tapRecognizer.delegate = self
         view.addGestureRecognizer(tapRecognizer)
     }
@@ -65,7 +65,7 @@ class PopUpViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
-    private func saveTask() {
+    @objc private func saveTask() {
         if let text = textField.text, !text.isEmpty {
             if let task = task {
                 delegate?.updateTask(task, newName: text)
@@ -86,7 +86,7 @@ class PopUpViewController: UIViewController {
         topViewConstraint.constant = view.frame.height - totalHeight
     }
     
-    @objc private func dismissVC() {
+    private func dismissVC() {
         textField.resignFirstResponder()
         dismiss(animated: true, completion: nil)
     }

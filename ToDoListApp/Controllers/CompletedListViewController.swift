@@ -48,8 +48,8 @@ class CompletedListViewController: UIViewController {
     }
     
     private func setupNavBarTitle() {
-        let label = UILabel(frame: CGRect.zero)
-        label.backgroundColor = UIColor.clear
+        let label = UILabel(frame: .zero)
+        label.backgroundColor = .clear
         if let font = UIFont(name: "AvenirNextCondensed-Bold", size: 22.0) {
             label.font = font
         }
