@@ -68,7 +68,7 @@ class CurrentListViewController: UIViewController {
     
     @objc private func addNewTask() {
         let popUpVC = PopUpViewController(delegate: self)
-        present(popUpVC, animated: true, completion: nil)
+        present(popUpVC, animated: true)
     }
     
     private func setTaskToCompleted(task: Task, row: Int) {
@@ -118,7 +118,7 @@ extension CurrentListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let popUpVC = PopUpViewController(task: model.currentTasks[indexPath.row], delegate: self)
-        present(popUpVC, animated: true, completion: nil)
+        present(popUpVC, animated: true)
     }
 }
 

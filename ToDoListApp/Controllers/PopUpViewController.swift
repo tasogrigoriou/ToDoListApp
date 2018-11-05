@@ -88,7 +88,7 @@ class PopUpViewController: UIViewController {
     
     private func dismissVC() {
         textField.resignFirstResponder()
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
 }
 

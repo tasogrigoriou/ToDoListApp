@@ -101,6 +101,7 @@ extension ToDoListModel: ToDoListModelProtocol {
     func deleteTask(_ task: Task, _ completion: ((_ success: Bool) -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
             let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+            fetchRequest.predicate = NSPredicate.init(format: "isComplete == false")
             do {
                 let items = try PersistenceService.context.fetch(fetchRequest)
                 if let itemToDelete = items.first(where: { $0 == task }) {
